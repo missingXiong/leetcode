@@ -1,0 +1,7 @@
+
+
+
+string longestDupSubstring(string S)
+{
+	
+}

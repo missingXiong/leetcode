@@ -1,0 +1,6 @@
+
+
+void cleanRoom(Robot& robot)
+{
+	
+}
