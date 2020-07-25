@@ -31,8 +31,8 @@ int minKnightMoves(int x, int y)
 				}
 			}
 		}
-		step++;
+		// step++;
 	}
-	return -1;
+	return step;
 }
 
