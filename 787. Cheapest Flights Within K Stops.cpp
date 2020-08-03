@@ -64,9 +64,50 @@ void DFS(vector<vector<pair<int, int>>>& graph, int src, int dst, int steps, int
 // bellman-ford (DP)
 int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K)
 {
+	vector<vector<int>> dp(K + 2, vector<int>(n, INT_MAX));
+	for(int i = 0; i <= K + 1; i++) dp[i][src] = 0;
 	
+	for(int i = 1; i <= K + 1; i++)
+	{
+		for(auto flight : flights)
+		{
+			int start = flight[0];
+			int end = flight[1];
+			int price = flight[2];
+			
+			if(dp[i - 1][start] != INT_MAX)
+				dp[i][end] = min(dp[i][end], dp[i - 1][start] + price);
+		}
+	}
+	
+	return dp[K + 1][dst] == INT_MAX ? -1 : dp[K + 1][dst];
 }
 
+int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K)
+{
+	vector<vector<int>> dp(2, vector<int>(n, INT_MAX));
+	dp[0][src] = dp[1][src] = 0;
+	
+	int old = 0, now = 0;
+	for(int i = 1; i <= K + 1; i++)
+	{
+		old = now;
+		now = 1 - now;
+		
+		for(auto flight : flights)
+		{
+			int start = flight[0];
+			int end = flight[1];
+			int price = flight[2];
+			
+			if(dp[old][start] != INT_MAX)
+				dp[now][end] = min(dp[now][end], dp[old][start] + price);
+		}
+	}
+	
+	return dp[now][dst] == INT_MAX ? -1 : dp[now][dst];
+}
+	
 
 
 
