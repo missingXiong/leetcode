@@ -42,7 +42,6 @@ int numSimilarGroups(vector<string>& A)
 	UnionFind uf(size);
 	for(int i = 0; i < size; i++)
 	{
-		if(joined.count(A[i])) continue;
 		for(int j = i + 1; j < size; j++)
 		{
 			if(isSimilar(A[i], A[j]))
