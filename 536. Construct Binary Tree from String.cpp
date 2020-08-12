@@ -43,3 +43,76 @@ TreeNode* helper(string& s)
 	return root;
 }
 
+TreeNode* str2tree(string s)
+{
+	int len = s.length();
+	if (len == 0) return nullptr;
+	stack<TreeNode*> stk;
+	for (int i = 0; i < len; i++)
+	{
+		if (s[i] == ')')
+		{
+			 stk.pop();
+		}
+		else if (isdigit(s[i]) || s[i] == '-')
+		{
+			int num = 0;
+			bool negative = false;
+			if (s[i] == '-')
+			{
+				negative = true;
+				i++;
+			}
+			
+			while (isdigit(s[i]))
+			{
+				num = num * 10 + (s[i] - '0');
+				i++;
+			}
+			i--;
+			int val = negative ? -1 * num : num;
+			TreeNode* node = new TreeNode(val);
+			
+			if (!stk.empty())
+			{
+				if ((stk.top())->left == nullptr)
+					(stk.top())->left = node;
+				else
+					(stk.top())->right = node;
+			}
+			stk.push(node);
+		}
+	}
+	
+	return stk.top();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
